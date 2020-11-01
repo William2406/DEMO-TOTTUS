@@ -9,4 +9,5 @@
     <string name="repeat_password">Repetir contraseña</string>
     <string name="register">Registrar</string>
     <string name="terms_and_conditions">Acepto los terminos y condiciones</string>
+    <string name="lastName">Apellidos</string>
 </resources>
