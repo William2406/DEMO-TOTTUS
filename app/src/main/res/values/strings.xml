@@ -5,4 +5,8 @@
     <string name="get_into">Ingresar</string>
     <string name="register_question">¿No tienes una cuenta?</string>
     <string name="register_here">Ingresa Aqui</string>
+    <string name="name">Nombres</string>
+    <string name="repeat_password">Repetir contraseña</string>
+    <string name="register">Registrar</string>
+    <string name="terms_and_conditions">Acepto los terminos y condiciones</string>
 </resources>
