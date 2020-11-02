@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tottus.R
 import com.tottus.databinding.DialogRegisterTeamBinding
 import com.tottus.databinding.FragmentGroupBinding
+import com.tottus.domain.entity.TeamDomain
 import com.tottus.ui.showLongMessage
 import com.tottus.ui.validateInputs
 import kotlinx.android.synthetic.main.dialog_register_team.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TeamFragment : Fragment() {
@@ -22,6 +26,7 @@ class TeamFragment : Fragment() {
     private lateinit var bindingFragment: FragmentGroupBinding
     private lateinit var bindingDialog: DialogRegisterTeamBinding
 
+    private val adapter: TeamAdapter by inject()
     private val viewModel: TeamViewModel by viewModel()
     private var dialog: Dialog? = null
 
@@ -38,7 +43,13 @@ class TeamFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         instanceDialog()
         initViewModel()
+        initRecyclerView()
         initOnClick()
+    }
+
+    private fun initRecyclerView() {
+        bindingFragment.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        bindingFragment.recyclerView.adapter = adapter
     }
 
     private fun initOnClick() {
@@ -51,7 +62,14 @@ class TeamFragment : Fragment() {
         viewModel.apply {
             showMessage.observe(viewLifecycleOwner, observerMessage())
             isSuccessful.observe(viewLifecycleOwner, observerSuccessful())
+            showAllTeams.observe(viewLifecycleOwner, observerTeams())
+            getAllTeams()
         }
+    }
+
+    private fun observerTeams() = Observer<MutableList<TeamDomain>> {
+        adapter.teamList = it
+        adapter.notifyDataSetChanged()
     }
 
     private fun observerMessage() = Observer<String> {
@@ -75,9 +93,11 @@ class TeamFragment : Fragment() {
             val sentence = dialog?.sentenceText?.text.toString()
             if (validateInputs(name, sentence)) {
                 viewModel.registerTeam(name, sentence)
+                viewModel.getAllTeams()
             } else {
                 showLongMessage("Existe Campos Vacios")
             }
         }
     }
+
 }

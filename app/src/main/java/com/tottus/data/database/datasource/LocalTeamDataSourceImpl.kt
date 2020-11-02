@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import com.tottus.data.OperationResult
 import com.tottus.data.database.TottusDataBase
 import com.tottus.data.database.entity.TeamLocal
+import com.tottus.data.database.entity.toDomain
 import com.tottus.data.datasource.LocalTeamDataSource
 import com.tottus.domain.entity.TeamDomain
 import java.lang.Exception
@@ -16,6 +17,16 @@ class LocalTeamDataSourceImpl(private val database: TottusDataBase) : LocalTeamD
             database.getTeamDao().saveTeam(teamLocal)
             OperationResult.Success("Registro Exitoso")
 
+        } catch (e: Exception) {
+            Log.e("LocalUserDSI -> ", e.printStackTrace().toString())
+            OperationResult.Error("Ocurrio un error")
+        }
+    }
+
+    override suspend fun getAllTeams(): OperationResult<MutableList<TeamDomain>> {
+        return try {
+            val listTeams = database.getTeamDao().getAllTeams()
+            OperationResult.Success(listTeams.toDomain().toMutableList())
         } catch (e: Exception) {
             Log.e("LocalUserDSI -> ", e.printStackTrace().toString())
             OperationResult.Error("Ocurrio un error")

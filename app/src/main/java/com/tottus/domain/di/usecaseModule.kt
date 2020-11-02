@@ -1,5 +1,6 @@
 package com.tottus.domain.di
 
+import com.tottus.domain.usecase.GetAllTeamsUseCase
 import com.tottus.domain.usecase.LoginUseCase
 import com.tottus.domain.usecase.SaveTeamUseCase
 import com.tottus.domain.usecase.SaveUserUseCase
@@ -9,4 +10,5 @@ val useCaseModule = module {
     factory { SaveUserUseCase(get()) }
     factory { LoginUseCase(get()) }
     factory { SaveTeamUseCase(get()) }
+    factory { GetAllTeamsUseCase(get()) }
 }

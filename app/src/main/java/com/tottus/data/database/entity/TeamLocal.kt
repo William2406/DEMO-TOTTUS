@@ -16,3 +16,5 @@ data class TeamLocal(
         sentence
     )
 }
+
+fun MutableList<TeamLocal>.toDomain() = map(TeamLocal::toDomain)

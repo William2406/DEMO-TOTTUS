@@ -6,6 +6,7 @@ import com.tottus.domain.entity.TeamDomain
 
 interface LocalTeamDataSource {
     suspend fun saveTeam(team: TeamDomain): OperationResult<String>
+    suspend fun getAllTeams(): OperationResult<MutableList<TeamDomain>>
 }
 
 interface RemoteTeamDataSource {
