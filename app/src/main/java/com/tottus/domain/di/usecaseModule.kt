@@ -9,4 +9,5 @@ val useCaseModule = module {
     factory { SaveTeamUseCase(get()) }
     factory { GetAllTeamsUseCase(get()) }
     factory { SaveParticipantUseCase(get()) }
+    factory { GetTeamWithParticipantUseCase(get()) }
 }

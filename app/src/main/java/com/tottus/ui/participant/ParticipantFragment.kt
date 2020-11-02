@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tottus.R
 import com.tottus.databinding.FragmentParticipantBinding
+import com.tottus.domain.entity.ParticipantDomain
 import com.tottus.ui.showLongMessage
 import com.tottus.ui.validateInputs
 import kotlinx.android.synthetic.main.bottomsheet_participant.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -20,6 +23,8 @@ class ParticipantFragment : Fragment() {
     private lateinit var bindingFragment: FragmentParticipantBinding
 
     private val viewModel: ParticipantViewModel by viewModel()
+    private val adapter: ParticipantAdapter by inject()
+
     private var dialog: BottomSheetDialog? = null
 
     override fun onCreateView(
@@ -38,14 +43,22 @@ class ParticipantFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
         initOnClick()
         instanceDialog()
+    }
+
+    private fun initRecyclerView() {
+        bindingFragment.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        bindingFragment.recyclerView.adapter = adapter
     }
 
     private fun initViewModel() {
         viewModel.apply {
             showMessage.observe(this@ParticipantFragment, observerMessage())
             isSuccessful.observe(this@ParticipantFragment, observerSuccessful())
+            showParticipants.observe(this@ParticipantFragment, observerParticipants())
+            getParticipantWith("1")
         }
     }
 
@@ -53,6 +66,11 @@ class ParticipantFragment : Fragment() {
         bindingFragment.saveButton.setOnClickListener {
             dialog?.show()
         }
+    }
+
+    private fun observerParticipants() = Observer<MutableList<ParticipantDomain>> {
+        adapter.listParticipants = it
+        adapter.notifyDataSetChanged()
     }
 
     private fun observerMessage() = Observer<String> {
@@ -71,7 +89,8 @@ class ParticipantFragment : Fragment() {
             val names = dialog?.participantNameText?.text.toString()
             val lastNames = dialog?.lastNameText?.text.toString()
             if (validateInputs(names, lastNames)) {
-                viewModel.registerParticipant(names, lastNames)
+                viewModel.registerParticipant(names, lastNames, 1)
+                viewModel.getParticipantWith("1")
             } else {
                 showLongMessage("Existen Campos vacios")
             }
