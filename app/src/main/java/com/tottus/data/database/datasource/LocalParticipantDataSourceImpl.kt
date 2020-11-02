@@ -28,7 +28,7 @@ class LocalParticipantDataSourceImpl(private val database: TottusDataBase) :
         return try {
             val participantLocal =
                 database.getParticipantDao()
-                    .getTeamWithParticipants(id.toString())[0].participants.toDomain()
+                    .getTeamWithParticipants(id)[0].participants.toDomain()
             OperationResult.Success(participantLocal.toMutableList())
 
         } catch (e: Exception) {

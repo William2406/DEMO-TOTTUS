@@ -42,9 +42,9 @@ class ParticipantViewModel(
         }
     }
 
-    fun getParticipantWith(id: String) {
+    fun getParticipantWith(id: Int) {
         viewModelScope.launch {
-            val response = getTeamWithParticipantUseCase.invoke(id.toInt())
+            val response = getTeamWithParticipantUseCase.invoke(id)
             when (response) {
                 is OperationResult.Success -> {
                     _isSuccessful.postValue(true)

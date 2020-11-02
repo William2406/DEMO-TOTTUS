@@ -12,6 +12,7 @@ data class TeamLocal(
     val sentence: String
 ) {
     fun toDomain() = TeamDomain(
+        id ?: 1,
         name ?: "",
         sentence
     )

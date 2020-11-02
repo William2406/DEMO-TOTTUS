@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -64,7 +65,9 @@ class TeamFragment : Fragment() {
         }
 
         adapter.onClick = TeamAdapter.OnClick {
-            view?.findNavController()?.navigate(R.id.action_nav_group_to_participantFragment)
+            val bundle = bundleOf("idTeam" to it)
+            view?.findNavController()
+                ?.navigate(R.id.action_nav_group_to_participantFragment, bundle)
         }
     }
 

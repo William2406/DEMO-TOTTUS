@@ -15,5 +15,5 @@ interface ParticipantDao {
 
     @Transaction
     @Query("SELECT * FROM tb_Team where id=:id")
-    suspend fun getTeamWithParticipants(id: String): MutableList<TeamWithParticipants>
+    suspend fun getTeamWithParticipants(id: Int): MutableList<TeamWithParticipants>
 }

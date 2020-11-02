@@ -26,6 +26,7 @@ class ParticipantFragment : Fragment() {
     private val adapter: ParticipantAdapter by inject()
 
     private var dialog: BottomSheetDialog? = null
+    private var idTeam: Int? = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +39,9 @@ class ParticipantFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        idTeam = arguments?.getInt("idTeam")
         initViewModel()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +61,7 @@ class ParticipantFragment : Fragment() {
             showMessage.observe(this@ParticipantFragment, observerMessage())
             isSuccessful.observe(this@ParticipantFragment, observerSuccessful())
             showParticipants.observe(this@ParticipantFragment, observerParticipants())
-            getParticipantWith("1")
+            getParticipantWith(idTeam!!)
         }
     }
 
@@ -89,8 +92,8 @@ class ParticipantFragment : Fragment() {
             val names = dialog?.participantNameText?.text.toString()
             val lastNames = dialog?.lastNameText?.text.toString()
             if (validateInputs(names, lastNames)) {
-                viewModel.registerParticipant(names, lastNames, 1)
-                viewModel.getParticipantWith("1")
+                viewModel.registerParticipant(names, lastNames, idTeam!!)
+                viewModel.getParticipantWith(idTeam!!)
             } else {
                 showLongMessage("Existen Campos vacios")
             }

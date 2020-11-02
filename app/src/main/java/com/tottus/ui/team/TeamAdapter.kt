@@ -30,12 +30,12 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(team: TeamDomain, onClick: OnClick?) = with(itemView) {
             nameText.text = team.name
-            containerView.setOnClickListener { onClick?.goToParticipants() }
+            containerView.setOnClickListener { onClick?.goToParticipants(team.id ?: 0) }
         }
     }
 
     fun interface OnClick {
-        fun goToParticipants()
+        fun goToParticipants(id: Int)
     }
 
 }

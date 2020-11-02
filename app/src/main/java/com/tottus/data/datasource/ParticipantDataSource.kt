@@ -5,7 +5,7 @@ import com.tottus.domain.entity.ParticipantDomain
 
 interface LocalParticipantDataSource {
     suspend fun saveParticipant(participant: ParticipantDomain): OperationResult<String>
-    suspend fun getParticipants(d: Int): OperationResult<MutableList<ParticipantDomain>>
+    suspend fun getParticipants(id: Int): OperationResult<MutableList<ParticipantDomain>>
 }
 
 interface RemoteParticipantDataSource {}

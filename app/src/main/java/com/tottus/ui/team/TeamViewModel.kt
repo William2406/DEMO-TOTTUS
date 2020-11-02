@@ -28,8 +28,8 @@ class TeamViewModel(
 
     fun registerTeam(name: String, sentence: String) {
         viewModelScope.launch {
-            val teamDomain = TeamDomain(name, sentence)
-            val response =  saveTeamUseCase.invoke(teamDomain)
+            val teamDomain = TeamDomain(null, name, sentence)
+            val response = saveTeamUseCase.invoke(teamDomain)
             when (response) {
                 is OperationResult.Success -> {
                     _isSuccessful.postValue(true)
