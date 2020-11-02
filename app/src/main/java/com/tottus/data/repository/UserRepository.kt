@@ -11,4 +11,6 @@ data class UserRepository(
     private val local: LocalUserDataSource
 ) {
     suspend fun saveLocalUser(user: UserDomain): OperationResult<String> = local.saveUser(user)
+    suspend fun login(email: String, password: String): OperationResult<String> =
+        local.verifyLogin(email, password)
 }

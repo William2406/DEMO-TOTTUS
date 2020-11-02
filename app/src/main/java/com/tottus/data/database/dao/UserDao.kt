@@ -12,4 +12,7 @@ interface UserDao {
 
     @Query("SELECT * FROM tb_User where email = :email ")
     suspend fun userVerify(email: String): UserLocal?
+
+    @Query("SELECT * FROM tb_User where email = :email AND password = :password")
+    suspend fun verifyLogin(email: String, password: String): UserLocal?
 }

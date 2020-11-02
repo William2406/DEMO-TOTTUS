@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".ui.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logotypeImage"
@@ -28,6 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/logotypeImage">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/email"
@@ -45,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/password"
