@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.tottus.R
 import com.tottus.databinding.DialogRegisterTeamBinding
 import com.tottus.databinding.FragmentGroupBinding
@@ -52,6 +53,16 @@ class TeamFragment : Fragment() {
         instanceDialog()
         initRecyclerView()
         initOnClick()
+        initSnackBar()
+    }
+
+    private fun initSnackBar() {
+        Snackbar.make(
+            bindingFragment.root,
+            "Puedes agregar integrantes haciendo click en un Team",
+            Snackbar.LENGTH_LONG
+        ).setAction("Cerrar") {}
+            .show()
     }
 
     private fun initRecyclerView() {

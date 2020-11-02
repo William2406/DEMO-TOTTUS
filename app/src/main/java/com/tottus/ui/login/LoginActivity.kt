@@ -59,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
     }
 
     private fun observerSuccessful() = Observer<Boolean> {
