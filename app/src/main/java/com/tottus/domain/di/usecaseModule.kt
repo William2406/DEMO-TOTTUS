@@ -1,9 +1,6 @@
 package com.tottus.domain.di
 
-import com.tottus.domain.usecase.GetAllTeamsUseCase
-import com.tottus.domain.usecase.LoginUseCase
-import com.tottus.domain.usecase.SaveTeamUseCase
-import com.tottus.domain.usecase.SaveUserUseCase
+import com.tottus.domain.usecase.*
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -11,4 +8,5 @@ val useCaseModule = module {
     factory { LoginUseCase(get()) }
     factory { SaveTeamUseCase(get()) }
     factory { GetAllTeamsUseCase(get()) }
+    factory { SaveParticipantUseCase(get()) }
 }

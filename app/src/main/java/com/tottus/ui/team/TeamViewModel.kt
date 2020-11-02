@@ -8,7 +8,9 @@ import com.tottus.data.OperationResult
 import com.tottus.domain.entity.TeamDomain
 import com.tottus.domain.usecase.GetAllTeamsUseCase
 import com.tottus.domain.usecase.SaveTeamUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TeamViewModel(
     private val saveTeamUseCase: SaveTeamUseCase,
@@ -27,7 +29,7 @@ class TeamViewModel(
     fun registerTeam(name: String, sentence: String) {
         viewModelScope.launch {
             val teamDomain = TeamDomain(name, sentence)
-            val response = saveTeamUseCase.invoke(teamDomain)
+            val response =  saveTeamUseCase.invoke(teamDomain)
             when (response) {
                 is OperationResult.Success -> {
                     _isSuccessful.postValue(true)

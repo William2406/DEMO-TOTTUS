@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tottus.R
 import com.tottus.databinding.DialogRegisterTeamBinding
@@ -39,10 +40,15 @@ class TeamFragment : Fragment() {
         return bindingFragment.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initViewModel()
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         instanceDialog()
-        initViewModel()
         initRecyclerView()
         initOnClick()
     }
@@ -56,13 +62,17 @@ class TeamFragment : Fragment() {
         bindingFragment.saveButton.setOnClickListener {
             dialog?.show()
         }
+
+        adapter.onClick = TeamAdapter.OnClick {
+            view?.findNavController()?.navigate(R.id.action_nav_group_to_participantFragment)
+        }
     }
 
     private fun initViewModel() {
         viewModel.apply {
-            showMessage.observe(viewLifecycleOwner, observerMessage())
-            isSuccessful.observe(viewLifecycleOwner, observerSuccessful())
-            showAllTeams.observe(viewLifecycleOwner, observerTeams())
+            showMessage.observe(this@TeamFragment, observerMessage())
+            isSuccessful.observe(this@TeamFragment, observerSuccessful())
+            showAllTeams.observe(this@TeamFragment, observerTeams())
             getAllTeams()
         }
     }
@@ -73,7 +83,7 @@ class TeamFragment : Fragment() {
     }
 
     private fun observerMessage() = Observer<String> {
-        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        showLongMessage(it)
     }
 
     private fun observerSuccessful() = Observer<Boolean> {

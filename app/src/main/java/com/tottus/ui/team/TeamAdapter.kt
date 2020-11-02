@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.item_team.view.*
 class TeamAdapter : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
 
     var teamList: MutableList<TeamDomain>? = null
+    var onClick: OnClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -20,17 +21,21 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         teamList?.get(position)?.let {
-            holder.bind(it)
+            holder.bind(it, onClick)
         }
     }
 
     override fun getItemCount(): Int = teamList?.size ?: 0
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(team: TeamDomain) = with(itemView) {
+        fun bind(team: TeamDomain, onClick: OnClick?) = with(itemView) {
             nameText.text = team.name
+            containerView.setOnClickListener { onClick?.goToParticipants() }
         }
     }
 
+    fun interface OnClick {
+        fun goToParticipants()
+    }
 
 }

@@ -15,6 +15,15 @@
         android:id="@+id/nav_group"
         android:name="com.tottus.ui.team.TeamFragment"
         android:label="@string/menu_team"
-        tools:layout="@layout/fragment_group" />
+        tools:layout="@layout/fragment_group" >
+        <action
+            android:id="@+id/action_nav_group_to_participantFragment"
+            app:destination="@id/participantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/participantFragment"
+        android:name="com.tottus.ui.participant.ParticipantFragment"
+        android:label="ParticipantFragment"
+        tools:layout="@layout/fragment_participant" />
 
 </navigation>
