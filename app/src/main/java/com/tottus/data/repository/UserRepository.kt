@@ -13,6 +13,6 @@ data class UserRepository(
 
     suspend fun saveLocalUser(user: UserDomain): OperationResult<String> = local.saveUser(user)
 
-    suspend fun login(email: String, password: String): OperationResult<String> =
+    suspend fun login(email: String, password: String): OperationResult<UserDomain> =
         local.verifyLogin(email, password)
 }

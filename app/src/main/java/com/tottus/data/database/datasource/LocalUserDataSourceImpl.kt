@@ -24,11 +24,11 @@ class LocalUserDataSourceImpl(private val database: TottusDataBase) : LocalUserD
         }
     }
 
-    override suspend fun verifyLogin(email: String, password: String): OperationResult<String> {
+    override suspend fun verifyLogin(email: String, password: String): OperationResult<UserDomain> {
         return try {
             val user = database.getUserDao().verifyLogin(email, password)?.toDomain()
             if (user != null) {
-                OperationResult.Success("Bienvenido ${user.names}")
+                OperationResult.Success(user)
             } else {
                 OperationResult.Error("Credenciales erroneas")
             }

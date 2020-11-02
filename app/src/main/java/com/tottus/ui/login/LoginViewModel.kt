@@ -13,8 +13,8 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
     private val _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful: LiveData<Boolean> = _isSuccessful
 
-    private val _showMessage = MutableLiveData<String>()
-    val showMessage: LiveData<String> = _showMessage
+    private val _showResult = MutableLiveData<Any>()
+    val showResult: LiveData<Any> = _showResult
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
@@ -22,11 +22,11 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
             when (response) {
                 is OperationResult.Success -> {
                     _isSuccessful.postValue(true)
-                    _showMessage.postValue(response.result)
+                    _showResult.postValue(response.result)
                 }
                 is OperationResult.Error -> {
                     _isSuccessful.postValue(false)
-                    _showMessage.postValue(response.error)
+                    _showResult.postValue(response.error)
                 }
             }
         }

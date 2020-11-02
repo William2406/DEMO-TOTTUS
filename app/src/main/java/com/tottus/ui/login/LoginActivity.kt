@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.tottus.databinding.ActivityLoginBinding
+import com.tottus.domain.entity.UserDomain
 import com.tottus.ui.*
 import com.tottus.ui.register.RegisterActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,19 +43,26 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel.apply {
-            showMessage.observe(this@LoginActivity, observerMessage())
+            showResult.observe(this@LoginActivity, observerResult())
             isSuccessful.observe(this@LoginActivity, observerSuccessful())
         }
     }
 
-    private fun observerMessage() = Observer<String> {
-        showLongMessage(it)
+    private fun observerResult() = Observer<Any> {
+        when (it) {
+            is String -> {
+                showLongMessage(it)
+            }
+            is UserDomain -> {
+                val intent = Intent(this, HomeActivity::class.java)
+                intent.putExtra("user", it)
+                startActivity(intent)
+            }
+        }
+
     }
 
     private fun observerSuccessful() = Observer<Boolean> {
-        if (it) {
-            finish()
-            startActivity(Intent(this, HomeActivity::class.java))
-        }
+        if (it) finish()
     }
 }
