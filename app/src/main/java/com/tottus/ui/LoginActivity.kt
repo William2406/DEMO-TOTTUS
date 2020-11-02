@@ -1,4 +1,4 @@
-package com.tottus
+package com.tottus.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
