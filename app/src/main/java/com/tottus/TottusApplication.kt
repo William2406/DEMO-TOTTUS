@@ -7,6 +7,7 @@ import com.tottus.data.di.repositoryModule
 import com.tottus.domain.di.useCaseModule
 import com.tottus.ui.di.loginModule
 import com.tottus.ui.di.registerModule
+import com.tottus.ui.di.teamModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.koinApplication
@@ -23,5 +24,5 @@ class TottusApplication : Application() {
 
     private val dataModules = listOf(databaseModule, dataSourceModule, repositoryModule)
     private val domainModules = listOf(useCaseModule)
-    private val presenterModules = listOf(registerModule,loginModule)
+    private val presenterModules = listOf(registerModule,loginModule,teamModule)
 }

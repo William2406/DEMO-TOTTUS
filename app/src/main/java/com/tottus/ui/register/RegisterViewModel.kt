@@ -1,14 +1,15 @@
-package com.tottus.ui
+package com.tottus.ui.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tottus.data.OperationResult
-import com.tottus.domain.usecase.LoginUseCase
+import com.tottus.domain.entity.UserDomain
+import com.tottus.domain.usecase.SaveUserUseCase
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
+class RegisterViewModel(private val saveUserUseCase: SaveUserUseCase) : ViewModel() {
 
     private val _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful: LiveData<Boolean> = _isSuccessful
@@ -16,9 +17,10 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
     private val _showMessage = MutableLiveData<String>()
     val showMessage: LiveData<String> = _showMessage
 
-    fun login(email: String, password: String) {
+    fun registerUser(names: String, lastNames: String, email: String, password: String) {
         viewModelScope.launch {
-            val response = loginUseCase.invoke(email, password)
+            val user = UserDomain(names, lastNames, email, password)
+            val response = saveUserUseCase.invoke(user)
             when (response) {
                 is OperationResult.Success -> {
                     _isSuccessful.postValue(true)
@@ -30,5 +32,6 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
                 }
             }
         }
+
     }
 }

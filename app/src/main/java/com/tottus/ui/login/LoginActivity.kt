@@ -1,12 +1,12 @@
-package com.tottus.ui
+package com.tottus.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.tottus.databinding.ActivityLoginBinding
-import org.koin.android.ext.android.bind
+import com.tottus.ui.*
+import com.tottus.ui.register.RegisterActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

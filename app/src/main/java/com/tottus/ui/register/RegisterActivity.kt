@@ -1,12 +1,12 @@
-package com.tottus.ui
+package com.tottus.ui.register
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.tottus.R
 import com.tottus.databinding.ActivityRegisterBinding
-import org.koin.android.ext.android.bind
+import com.tottus.ui.showLongMessage
+import com.tottus.ui.validateInputs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

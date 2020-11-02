@@ -22,4 +22,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_team">Grupos</string>
+    <string name="team_name">Nombre de Grupo</string>
+    <string name="team_sentence">Frase</string>
+    <string name="add">Agregar</string>
 </resources>
