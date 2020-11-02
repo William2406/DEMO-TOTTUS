@@ -51,7 +51,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    /** ViewModel **/
     private fun initViewModel() {
         viewModel.apply {
             showMessage.observe(this@RegisterActivity, observerMessage())
@@ -59,7 +58,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    /** Observer **/
     private fun observerMessage() = Observer<String> {
         Toast.makeText(this@RegisterActivity, it, Toast.LENGTH_LONG).show()
     }
