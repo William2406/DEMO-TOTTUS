@@ -11,6 +11,9 @@ import kotlinx.coroutines.launch
 
 class RegisterViewModel(private val saveUserUseCase: SaveUserUseCase) : ViewModel() {
 
+    private val _isSuccessful = MutableLiveData<Boolean>()
+    val isSuccessful: LiveData<Boolean> = _isSuccessful
+
     private val _showMessage = MutableLiveData<String>()
     val showMessage: LiveData<String> = _showMessage
 
@@ -20,9 +23,12 @@ class RegisterViewModel(private val saveUserUseCase: SaveUserUseCase) : ViewMode
             val response = saveUserUseCase.invoke(user)
             when (response) {
                 is OperationResult.Success -> {
+                    _isSuccessful.postValue(true)
                     _showMessage.postValue(response.result)
                 }
                 is OperationResult.Error -> {
+                    _isSuccessful.postValue(false)
+                    _showMessage.postValue(response.error)
                 }
             }
         }

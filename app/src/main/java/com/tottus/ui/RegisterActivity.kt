@@ -32,7 +32,22 @@ class RegisterActivity : AppCompatActivity() {
             val lastNames = binding.lastNameText.text.toString()
             val email = binding.emailText.text.toString()
             val password = binding.passwordText.text.toString()
-            viewModel.registerUser(names, lastNames, email, password)
+            val repeatPassword = binding.repeatPasswordText.text.toString()
+            val termsCheck = binding.termsCheckBox
+
+            if (validateInputs(names, lastNames, email, password, repeatPassword)) {
+                if (validateRepeatPass(password, repeatPassword)) {
+                    if (termsCheck.isChecked) {
+                        viewModel.registerUser(names, lastNames, email, password)
+                    } else {
+                        showLongMessage("Acepte los terminos y condiciones")
+                    }
+                } else {
+                    showLongMessage("Contraseñas no coinciden")
+                }
+            } else {
+                showLongMessage("Existe Campos Vacios")
+            }
         }
     }
 
@@ -40,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun initViewModel() {
         viewModel.apply {
             showMessage.observe(this@RegisterActivity, observerMessage())
+            isSuccessful.observe(this@RegisterActivity, observerSuccessful())
         }
     }
 
@@ -47,4 +63,13 @@ class RegisterActivity : AppCompatActivity() {
     private fun observerMessage() = Observer<String> {
         Toast.makeText(this@RegisterActivity, it, Toast.LENGTH_LONG).show()
     }
+
+    private fun observerSuccessful() = Observer<Boolean> {
+        if (it) finish()
+    }
+
+    private fun validateRepeatPass(password: String, repeatPassword: String): Boolean {
+        return password == repeatPassword
+    }
+
 }

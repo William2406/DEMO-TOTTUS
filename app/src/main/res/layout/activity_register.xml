@@ -113,6 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/repeatPasswordInputLayout">
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/termsCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@color/light_green_500"/>
